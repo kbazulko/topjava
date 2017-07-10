@@ -32,10 +32,8 @@ public class UserMealsUtil {
     public static List<UserMealWithExceed>  getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
 
         //Create map for storing calories consumption by days
-        Map<LocalDate, Integer> consumptionMap = new HashMap<>();
-
-        //Fill the map with data
-        mealList.forEach(userMeal -> consumptionMap.merge(userMeal.getDateTime().toLocalDate(), userMeal.getCalories(), Integer::sum));
+        final Map<LocalDate, Integer> consumptionMap = mealList.stream()
+                .collect(Collectors.toMap(k->k.getDateTime().toLocalDate(), UserMeal::getCalories, Integer::sum));
 
         //Return filtered list
         return mealList.stream()
