@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import ru.javawebinar.topjava.dao.MealDao;
 import ru.javawebinar.topjava.dao.MealDaoMapImpl;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealWithExceed;
+import ru.javawebinar.topjava.util.DateUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -13,14 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -39,16 +33,14 @@ public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String forward;
-        String action = request.getParameter("action");
+        String action = request.getParameter("action") == null ? "listMeal" : request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")){
             log.debug("delete meal");
             int mealId = Integer.parseInt(request.getParameter("mealId"));
             dao.removeMeal(mealId);
-            forward = LIST_MEAL;
-
-            request.setAttribute("meals",
-                    MealsUtil.getFilteredWithExceeded(dao.listMeals(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
+            response.sendRedirect("meals");
+            return;
         } else if (action.equalsIgnoreCase("edit")){
             log.debug("edit meal");
             forward = INSERT_OR_EDIT;
@@ -71,9 +63,8 @@ public class MealServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.from(f.parse(request.getParameter("dateTime").replace('T', ' ')));
-
+        LocalDateTime dateTime = DateUtil.convertToLocalDateTime(request.getParameter("dateTime").replace('T', ' '),
+                "yyyy-MM-dd HH:mm");
         String description = request.getParameter("description");
         int calories = Integer.parseInt(request.getParameter("calories"));
 
