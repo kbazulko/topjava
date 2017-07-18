@@ -41,21 +41,27 @@
 <body>
 <h3><a href="index.html">Home</a></h3>
 <h2>Приемы пищи</h2>
-<c:if test="${!empty mealWithExceeds}">
+<c:if test="${!empty meals}">
     <table class="tg">
         <tr>
+            <th width="120">id</th>
             <th width="120">Дата/ время</th>
             <th width="180">Описание</th>
             <th width="100">Калории</th>
+            <th colspan=2>Действие</th>
         </tr>
-        <c:forEach items="${mealWithExceeds}" var="meal">
+        <c:forEach items="${meals}" var="meal">
             <tr style=${meal.exceed?  'color:red;': 'color:green;'}>
+                <td>${meal.id}</td>
                 <td>${f:formatLocalDateTime(meal.dateTime, 'dd.MM.yyyy hh:mm')}</td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
+                <td><a href="meals?action=edit&mealId=<c:out value="${meal.id}"/>">Обновить</a></td>
+                <td><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Удалить</a></td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
+<p><a href="meals?action=insert">Добавить прием пищи</a></p>
 </body>
 </html>
