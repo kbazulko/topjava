@@ -44,7 +44,6 @@
 <c:if test="${!empty meals}">
     <table class="tg">
         <tr>
-            <th width="120">id</th>
             <th width="120">Дата/ время</th>
             <th width="180">Описание</th>
             <th width="100">Калории</th>
@@ -52,7 +51,6 @@
         </tr>
         <c:forEach items="${meals}" var="meal">
             <tr style=${meal.exceed?  'color:red;': 'color:green;'}>
-                <td>${meal.id}</td>
                 <td>${f:formatLocalDateTime(meal.dateTime, 'dd.MM.yyyy hh:mm')}</td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>

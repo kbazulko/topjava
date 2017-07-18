@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class MealsUtil {
     public static void main(String[] args) {
-        List<Meal> meals = initializeMealList();
+        List<Meal> meals = initializeList();
         List<MealWithExceed> mealsWithExceeded = getFilteredWithExceeded(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
         mealsWithExceeded.forEach(System.out::println);
     }
@@ -34,7 +34,7 @@ public class MealsUtil {
                 .collect(Collectors.toList());
     }
 
-    public static List<Meal> initializeMealList() {
+    public static List<Meal> initializeList() {
         return Arrays.asList(
                 new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
                 new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),

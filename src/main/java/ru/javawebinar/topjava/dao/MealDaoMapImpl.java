@@ -5,25 +5,26 @@ import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MealDaoMapImpl implements MealDao{
 
-    private static Map<Integer, Meal> mealMap;
-    private static int maxId = 0;
+    private Map<Integer, Meal> mealMap;
+    private AtomicInteger maxId = new AtomicInteger(0);
 
     public MealDaoMapImpl() {
         mealMap = new ConcurrentHashMap<>();
-        List<Meal> mealList = MealsUtil.initializeMealList();
+        List<Meal> mealList = MealsUtil.initializeList();
         for (Meal meal: mealList) {
-            meal.setId(++maxId);
-            mealMap.put(maxId, meal);
+            meal.setId(maxId.incrementAndGet());
+            mealMap.put(maxId.get(), meal);
         }
     }
 
     @Override
     public void addMeal(Meal meal) {
-        meal.setId(++maxId);
-        mealMap.put(maxId, meal);
+        meal.setId(maxId.incrementAndGet());
+        mealMap.put(maxId.get(), meal);
     }
 
     @Override

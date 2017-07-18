@@ -31,8 +31,7 @@ public class MealServlet extends HttpServlet {
     private static int CALORIES_PER_DAY = 2000;
     private MealDao dao;
 
-    public MealServlet() {
-        super();
+    public void init() throws ServletException {
         this.dao = new MealDaoMapImpl();
     }
 
@@ -47,6 +46,7 @@ public class MealServlet extends HttpServlet {
             int mealId = Integer.parseInt(request.getParameter("mealId"));
             dao.removeMeal(mealId);
             forward = LIST_MEAL;
+
             request.setAttribute("meals",
                     MealsUtil.getFilteredWithExceeded(dao.listMeals(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
         } else if (action.equalsIgnoreCase("edit")){
