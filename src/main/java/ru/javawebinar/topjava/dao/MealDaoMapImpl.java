@@ -17,14 +17,14 @@ public class MealDaoMapImpl implements MealDao{
         List<Meal> mealList = MealsUtil.initializeList();
         for (Meal meal: mealList) {
             meal.setId(maxId.incrementAndGet());
-            mealMap.put(maxId.get(), meal);
+            mealMap.put(meal.getId(), meal);
         }
     }
 
     @Override
     public void addMeal(Meal meal) {
         meal.setId(maxId.incrementAndGet());
-        mealMap.put(maxId.get(), meal);
+        mealMap.put(meal.getId(), meal);
     }
 
     @Override
