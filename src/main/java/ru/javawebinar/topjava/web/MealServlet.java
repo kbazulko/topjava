@@ -38,20 +38,20 @@ public class MealServlet extends HttpServlet {
         if (action.equalsIgnoreCase("delete")){
             log.debug("delete meal");
             int mealId = Integer.parseInt(request.getParameter("mealId"));
-            dao.removeMeal(mealId);
+            dao.remove(mealId);
             response.sendRedirect("meals");
             return;
         } else if (action.equalsIgnoreCase("edit")){
             log.debug("edit meal");
             forward = INSERT_OR_EDIT;
             int mealId = Integer.parseInt(request.getParameter("mealId"));
-            Meal meal = dao.getMealById(mealId);
+            Meal meal = dao.getById(mealId);
             request.setAttribute("meal", meal);
         } else if (action.equalsIgnoreCase("listMeal")){
             log.debug("redirect to meals");
             forward = LIST_MEAL;
             request.setAttribute("meals",
-                    MealsUtil.getFilteredWithExceeded(dao.listMeals(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
+                    MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
         } else {
             forward = INSERT_OR_EDIT;
         }
@@ -63,8 +63,7 @@ public class MealServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        LocalDateTime dateTime = DateUtil.convertToLocalDateTime(request.getParameter("dateTime").replace('T', ' '),
-                "yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = DateUtil.convertToLocalDateTime(request.getParameter("dateTime").replace('T', ' '));
         String description = request.getParameter("description");
         int calories = Integer.parseInt(request.getParameter("calories"));
 
@@ -74,17 +73,17 @@ public class MealServlet extends HttpServlet {
         if(mealId == null || mealId.isEmpty())
         {
             log.debug("add meal");
-            dao.addMeal(meal);
+            dao.add(meal);
         }
         else
         {
             log.debug("edit meal");
             meal.setId(Integer.parseInt(mealId));
-            dao.updateMeal(meal);
+            dao.update(meal);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_MEAL);
         request.setAttribute("meals",
-                MealsUtil.getFilteredWithExceeded(dao.listMeals(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
+                MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY));
         view.forward(request, response);
     }
 }

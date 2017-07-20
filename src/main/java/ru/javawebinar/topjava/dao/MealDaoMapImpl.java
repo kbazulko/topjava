@@ -22,28 +22,28 @@ public class MealDaoMapImpl implements MealDao{
     }
 
     @Override
-    public void addMeal(Meal meal) {
+    public void add(Meal meal) {
         meal.setId(maxId.incrementAndGet());
         mealMap.put(meal.getId(), meal);
     }
 
     @Override
-    public void updateMeal(Meal meal) {
+    public void update(Meal meal) {
         mealMap.put(meal.getId(), meal);
     }
 
     @Override
-    public void removeMeal(int id) {
+    public void remove(int id) {
         mealMap.remove(id);
     }
 
     @Override
-    public Meal getMealById(int id) {
+    public Meal getById(int id) {
         return mealMap.get(id);
     }
 
     @Override
-    public List<Meal> listMeals() {
+    public List<Meal> getAll() {
         return new ArrayList<>(mealMap.values());
     }
 }
