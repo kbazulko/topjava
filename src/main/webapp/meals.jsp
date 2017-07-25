@@ -14,11 +14,38 @@
             color: red;
         }
     </style>
+    <script>
+        function clearFilter()
+        {
+            var childNodes = document.getElementById("filter").getElementsByTagName('input');
+            for(i = 0; i < childNodes.length; i++) {
+                childNodes[i].value = '';
+            }
+        }
+    </script>
 </head>
 <body>
 <section>
     <h3><a href="index.html">Home</a></h3>
     <h2>Meal list</h2>
+    <form id="filter" method="post" action="meals">
+        <table cellpadding="4">
+            <tr>
+                <td>From date</td>
+                <td><input type="date" name="fromDate" value=${fromDate}></td>
+                <td>From time</td>
+                <td><input type="time" name="fromTime" value=${fromTime}></td>
+            </tr>
+            <tr>
+                <td>To date</td>
+                <td><input type="date" name="toDate" value=${toDate}></td>
+                <td>To time</td>
+                <td><input type="time" name="toTime" value=${toTime}></td>
+            </tr>
+        </table>
+        <button type="submit">Filter</button>
+        <button onclick="clearFilter()">Clear filter</button>
+    </form>
     <a href="meals?action=create">Add Meal</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
@@ -32,7 +59,7 @@
         </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
-            <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.MealWithExceed"/>
+            <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.MealWithExceed"/>
             <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
