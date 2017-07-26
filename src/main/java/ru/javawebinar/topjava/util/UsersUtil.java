@@ -13,8 +13,4 @@ public class UsersUtil {
             new User(null, "admin", "email", "password", Role.ROLE_ADMIN),
             new User(null, "user", "email", "password", Role.ROLE_USER)
     );
-
-    public static Meal getMeal(Meal meal, int userId) {
-        return meal == null ? null : meal.getUserId() == userId ? meal : null;
-    }
 }

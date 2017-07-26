@@ -14,7 +14,7 @@ public class Meal extends BaseEntity implements Comparable<Meal>{
 
     private final int calories;
 
-    private final int userId;
+    private int userId;
 
     public Meal(LocalDateTime dateTime, String description, int calories, int userId) {
         this(null, dateTime, description, calories, userId);
@@ -26,14 +26,6 @@ public class Meal extends BaseEntity implements Comparable<Meal>{
         this.description = description;
         this.calories = calories;
         this.userId = userId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDateTime getDateTime() {
@@ -62,6 +54,10 @@ public class Meal extends BaseEntity implements Comparable<Meal>{
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
