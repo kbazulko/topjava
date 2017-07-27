@@ -56,10 +56,6 @@ public class Meal extends BaseEntity implements Comparable<Meal>{
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String toString() {
         return "Meal{" +
