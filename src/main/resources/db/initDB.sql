@@ -24,12 +24,13 @@ CREATE TABLE user_roles
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE users
+CREATE TABLE meals
 (
   id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date_time   TIMESTAMP DEFAULT now(),
   description VARCHAR NOT NULL,
   calories    INTEGER NOT NULL,
   user_id     INTEGER NOT NULL,
+  CONSTRAINT user_meal_idx UNIQUE (date_time, user_id),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
