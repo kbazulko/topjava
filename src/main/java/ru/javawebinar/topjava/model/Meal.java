@@ -1,15 +1,18 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:user_id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id ORDER BY m.dateTime DESC"),
         @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime=:date_time, m.description=:description, m.calories=:calories WHERE m.id=:id AND m.user.id=:user_id"),
-        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id ORDER BY m.dateTime DESC"),
         @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id AND m.dateTime BETWEEN :start_date AND :end_date  ORDER BY m.dateTime DESC"),
 })
 @Entity
@@ -17,9 +20,8 @@ import java.time.LocalTime;
 public class Meal extends BaseEntity {
 
     public static final String DELETE = "Meal.delete";
-    public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String UPDATE = "Meal.save";
-    public static final String GET = "Meal.get";
+    public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String GET_BETWEEN = "Meal.getBetween";
 
 
@@ -28,10 +30,11 @@ public class Meal extends BaseEntity {
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
-    @NotNull
+    @NotBlank
     private String description;
 
     @Column(name = "calories", nullable = false)
+    @Min(value = 0L, message = "the value should be greater than zero")
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)

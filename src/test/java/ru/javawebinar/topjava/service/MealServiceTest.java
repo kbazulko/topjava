@@ -1,10 +1,7 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.*;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TestName;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
+import org.junit.rules.*;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.junit.runners.model.Statement;
@@ -24,6 +21,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
@@ -51,19 +49,11 @@ public class MealServiceTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Rule
-    public final TestName testName = new TestName() {
-
-        private Long time;
-
+    public final Stopwatch stopwatch = new Stopwatch() {
         @Override
-        protected void starting(Description description) {
-            super.starting(description);
-            time = System.currentTimeMillis();
-        }
-
-        @Override
-        protected void finished(Description description) {
-            String msg = getMethodName() + " test time: " +(System.currentTimeMillis() - time) + " ms.";
+        protected void finished(long nanos, Description description) {
+            super.finished(nanos, description);
+            String msg = description.getMethodName() + " test time: " + TimeUnit.NANOSECONDS.toMillis(nanos) + " ms.";
             logger.info(msg);
             TEST_LIST.add(msg);
         }
