@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,6 +11,7 @@ import ru.javawebinar.topjava.model.User;
 
 import java.util.List;
 
+@Profile("datajpa")
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
@@ -29,4 +31,7 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
     List<User> findAll(Sort sort);
 
     User getByEmail(String email);
+
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.meals m WHERE u.id=:id ORDER BY m.dateTime desc")
+    User getWithMeals(@Param("id") int id);
 }

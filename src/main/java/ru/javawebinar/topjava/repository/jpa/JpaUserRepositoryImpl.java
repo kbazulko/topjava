@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.repository.jpa;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Profile("jpa")
 @Repository
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
@@ -68,5 +70,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
+    }
+
+    @Override
+    public User getWithMeals(int id) {
+        return null;
     }
 }
