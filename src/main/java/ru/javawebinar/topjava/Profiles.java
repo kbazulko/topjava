@@ -26,18 +26,4 @@ public class Profiles {
             }
         }
     }
-
-    public static String getActiveRepProfile() {
-        try {
-            Class.forName("org.springframework.data.jpa.domain.JpaSort");
-            return DATAJPA;
-        } catch (ClassNotFoundException ex) {
-            try {
-                Class.forName("org.springframework.orm.jpa.EntityManagerHolder");
-                return JPA;
-            } catch (ClassNotFoundException e) {
-                return JDBC;
-            }
-        }
-    }
 }

@@ -11,7 +11,6 @@ import ru.javawebinar.topjava.model.User;
 
 import java.util.List;
 
-@Profile("datajpa")
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional

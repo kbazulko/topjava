@@ -15,7 +15,6 @@ import ru.javawebinar.topjava.repository.UserRepository;
 import javax.sql.DataSource;
 import java.util.List;
 
-@Profile("jdbc")
 @Repository
 public class JdbcUserRepositoryImpl implements UserRepository {
 

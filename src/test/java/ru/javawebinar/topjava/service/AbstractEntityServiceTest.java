@@ -90,5 +90,4 @@ public abstract class AbstractEntityServiceTest {
     @Test
     public abstract void testGetAll() throws Exception;
 
-
 }

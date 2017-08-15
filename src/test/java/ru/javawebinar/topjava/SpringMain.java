@@ -3,6 +3,8 @@ package ru.javawebinar.topjava;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.StandardEnvironment;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.MealWithExceed;
@@ -18,8 +20,7 @@ import java.util.List;
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management
-        String rep = Profiles.getActiveRepProfile();
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, Profiles.getActiveDbProfile() + ", datajpa");
+        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, Profiles.getActiveDbProfile() + ", " + Profiles.REPOSITORY_IMPLEMENTATION);
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);

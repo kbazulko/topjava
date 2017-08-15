@@ -9,9 +9,9 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 
-@Repository
 @Profile("postgres")
-public class PostgresJdbcMealRepositoryImpl extends JdbcMealRepositoryImpl implements MealRepository {
+@Repository
+public class PostgresJdbcMealRepositoryImpl extends JdbcMealRepositoryImpl<LocalDateTime> implements MealRepository {
 
     public PostgresJdbcMealRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         super(dataSource, jdbcTemplate, namedParameterJdbcTemplate);
