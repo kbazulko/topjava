@@ -24,8 +24,8 @@ public abstract class UserServiceTest extends AbstractEntityServiceTest{
     public void setUp() throws Exception {
         service.evictCache();
     }
-        
-    @Override
+
+    @Test
     public void testCreate() throws Exception {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
@@ -39,25 +39,25 @@ public abstract class UserServiceTest extends AbstractEntityServiceTest{
         service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
-    @Override
+    @Test
     public void testDelete() throws Exception {
         service.delete(USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER2), service.getAll());
     }
 
-    @Override
+    @Test
     public void testDeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.delete(1);
     }
 
-    @Override
+    @Test
     public void testGet() throws Exception {
         User user = service.get(USER_ID);
         MATCHER.assertEquals(USER, user);
     }
 
-    @Override
+    @Test
     public void testGetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(1);
@@ -69,13 +69,13 @@ public abstract class UserServiceTest extends AbstractEntityServiceTest{
         MATCHER.assertEquals(USER, user);
     }
 
-    @Override
+    @Test
     public void testGetAll() throws Exception {
         Collection<User> all = service.getAll();
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER, USER2), all);
     }
 
-    @Override
+    @Test
     public void testUpdate() throws Exception {
         User updated = new User(USER);
         updated.setName("UpdatedName");
@@ -84,12 +84,4 @@ public abstract class UserServiceTest extends AbstractEntityServiceTest{
         MATCHER.assertEquals(updated, service.get(USER_ID));
     }
 
-    @Test
-    public void testFindMeal() throws Exception {
-    }
-
-    @Test
-    public void testFindEmptyMeal() throws Exception {
-
-    }
 }

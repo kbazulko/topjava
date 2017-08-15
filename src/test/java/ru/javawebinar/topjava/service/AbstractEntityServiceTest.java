@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.service;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
@@ -68,26 +67,5 @@ public abstract class AbstractEntityServiceTest {
         // It uses java.util.logging and logged via jul-to-slf4j bridge
         SLF4JBridgeHandler.install();
     }
-
-    @Test
-    public abstract void testDelete() throws Exception;
-
-    @Test
-    public abstract void testDeleteNotFound() throws Exception;
-
-    @Test
-    public abstract void testCreate() throws Exception;
-
-    @Test
-    public abstract void testGet() throws Exception;
-
-    @Test
-    public abstract void testGetNotFound() throws Exception;
-
-    @Test
-    public abstract void testUpdate() throws Exception;
-
-    @Test
-    public abstract void testGetAll() throws Exception;
 
 }

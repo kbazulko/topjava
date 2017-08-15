@@ -18,38 +18,38 @@ public abstract class MealServiceTest  extends AbstractEntityServiceTest{
     @Autowired
     protected MealService service;
 
-    @Override
+    @Test
     public void testDelete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
-    @Override
+    @Test
     public void testDeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.delete(MEAL1_ID, 1);
     }
 
-    @Override
+    @Test
     public void testCreate() throws Exception {
         Meal created = getCreated();
         service.create(created, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
-    @Override
+    @Test
     public void testGet() throws Exception {
         Meal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
         MATCHER.assertEquals(ADMIN_MEAL1, actual);
     }
 
-    @Override
+    @Test
     public void testGetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(MEAL1_ID, ADMIN_ID);
     }
 
-    @Override
+    @Test
     public void testUpdate() throws Exception {
         Meal updated = getUpdated();
         service.update(updated, USER_ID);
@@ -63,7 +63,7 @@ public abstract class MealServiceTest  extends AbstractEntityServiceTest{
         service.update(MEAL1, ADMIN_ID);
     }
 
-    @Override
+    @Test
     public void testGetAll() throws Exception {
         MATCHER.assertCollectionEquals(MEALS, service.getAll(USER_ID));
     }

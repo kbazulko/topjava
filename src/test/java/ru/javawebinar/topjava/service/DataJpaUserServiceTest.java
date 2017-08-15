@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.User;
@@ -60,13 +61,13 @@ public class DataJpaUserServiceTest extends UserServiceTest{
         super.testUpdate();
     }
 
-    @Override
+    @Test
     public void testFindMeal() throws Exception {
         User user = service.getWithMeals(ADMIN_ID);
         MealTestData.MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL2, ADMIN_MEAL1), user.getMeals());
     }
 
-    @Override
+    @Test
     public void testFindEmptyMeal() throws Exception {
         User user = service.getWithMeals(USER2_ID);
         MealTestData.MATCHER.assertCollectionEquals(Collections.EMPTY_LIST, user.getMeals());
