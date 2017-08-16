@@ -19,13 +19,6 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Transactional
     Meal save(Meal meal);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE Meal m SET m.dateTime=:dateTime, m.description=:description, m.calories=:calories " +
-                    "WHERE m.id=:id AND m.user.id=:userId")
-    int update(@Param("id") int id, @Param("userId") int userId, @Param("dateTime") LocalDateTime dateTime,
-                @Param("description") String description, @Param("calories") int calories);
-
     @Override
     Meal findOne(Integer id);
 
