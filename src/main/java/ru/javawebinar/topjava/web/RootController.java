@@ -26,6 +26,7 @@ public class RootController {
         return "users";
     }
 
+
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String setUser(HttpServletRequest request) {
         int userId = Integer.valueOf(request.getParameter("userId"));

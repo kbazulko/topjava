@@ -147,4 +147,8 @@ public class User extends AbstractNamedEntity {
                 ", caloriesPerDay=" + caloriesPerDay +
                 '}';
     }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
