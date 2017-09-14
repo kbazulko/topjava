@@ -18,7 +18,7 @@
             <div class="shadow">
                 <h3><spring:message code="meal.title"/></h3>
                 <br/>
-                <form lass="form-horizontal" id="filter">
+                <form class="form-horizontal" id="filter">
 
                     <div class="form-group">
                         <label for="startDate" class="control-label col-xs-3"><spring:message code="meal.startDate"/></label>
