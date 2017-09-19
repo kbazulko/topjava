@@ -50,8 +50,6 @@ public abstract class AbstractUserController {
     }
 
     public void setEnabled(int id, boolean enabled) {
-        User user = get(id);
-        user.setEnabled(enabled);
-        update(user, id);
+        service.setEnabled(id, enabled);
     }
 }
